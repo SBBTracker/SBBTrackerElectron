@@ -104,3 +104,4 @@ public.key
 
 # Python Virtual Enviorment
 venv/
+**/__pycache__/

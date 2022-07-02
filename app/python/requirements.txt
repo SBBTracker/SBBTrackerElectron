@@ -1,0 +1,3 @@
+git+https://github.com/SBBTracker/SBBLogParser.git@import_fix
+git+https://github.com/SBBTracker/SBBBattleSim.git@main
+pyinstaller~=4.7
