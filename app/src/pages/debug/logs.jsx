@@ -1,18 +1,25 @@
 import { useState, useEffect } from 'react';
 import React from "react";
+import "./logs.css"
 
-
-function Logs() {  
-    const [logs, setLogs] = useState('')
+const Logs = ({ log_history }) => {
+    const [logs, setLogs] = useState(log_history)
 
     useEffect(() => {
-        api.response('logs/new', (data) => {
-            console.log(`SETTINGS LOGS`)
-            setLogs(logs.concat('\n', data))
+        api.once("logs/new", (log) => {
+            setLogs([...logs, log])
         })
     })
-    
-    return <div id='logBox'>{logs}</div>
+
+    return (
+        <div id='logBox'>
+            {
+                logs.map((data) => {
+                    return <div id='logText'>{data}</div>
+                })
+            }
+        </div>
+    )
 }
 
 export default Logs;

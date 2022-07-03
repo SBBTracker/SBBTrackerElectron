@@ -61,7 +61,6 @@ function requestHandler(req, next) {
       });
     } else {
       console.error(err);
-      console.log('THIS ERROR?!??!')
     }
   });
 }

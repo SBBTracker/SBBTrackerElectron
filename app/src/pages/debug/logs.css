@@ -1,0 +1,14 @@
+#logsBox {
+    align-content: right;
+    padding: 15px;
+    overflow-y: scroll;
+    height: 90%;
+    width: 70%;
+    background-color: transparent;
+    border: 0px solid;
+    background-color: white;
+}
+
+#logText {
+    font-size: 10pt;
+}

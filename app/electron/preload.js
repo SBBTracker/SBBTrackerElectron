@@ -3,31 +3,41 @@ const Store = require('electron-store');
 const { schema, migrations } = require('./settings')
 
 
-
-
-
 contextBridge.exposeInMainWorld('api', {
     settings: new Store({ schema, migrations }),
-    window: {
-        minimize: () => ipcRenderer.send("app/minimize"),
-        close_app: () => ipcRenderer.send("app/close")
-    },
+    log_history: new Array(),
 
-    //send: (channel, data) => {
-    request: (channel, data) => {
-        // whitelist channels
-        let validChannels = ["toMain"];
+    send: (channel, data) => {
+        let validChannels = [
+            "app/minimize",
+            "app/close"
+        ];
         if (validChannels.includes(channel)) {
+            console.log(`send ${channel} ${func}`)
             ipcRenderer.send(channel, data);
         }
     },
-    //receive: (channel, func) => {
-    response: (channel, func) => {
-        let validChannels = ["logs/new"];
+
+    on: (channel, func) => {
+        let validChannels = [
+            "logs/new",
+            "logs/new_game",
+        ];
         if (validChannels.includes(channel)) {
-            // Deliberately strip event as it includes `sender` 
+            console.log(`ON ${channel} ${func}`)
             ipcRenderer.on(channel, (event, ...args) => func(...args));
-            console.log(channel, func)
+        }
+    },
+    
+    once: (channel, func) => {
+        let validChannels = [
+            "logs/new",
+            "logs/new_game",
+        ];
+        if (validChannels.includes(channel)) {
+            console.log(`once ${channel} ${func}`)
+            ipcRenderer.once(channel, (event, ...args) => func(...args));
         }
     }
+
 })

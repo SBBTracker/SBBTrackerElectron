@@ -1,0 +1,13 @@
+{
+    "JOB_PLAYERINFO": "PlayerInfo",
+    "JOB_INITCURRENTPLAYER": "InitCurrentPlayer",
+    "JOB_BOARDINFO": "BoardInfo",
+    "JOB_ROUNDINFO": "RoundInfo",
+    "JOB_NEWGAME": "StateNewgame",
+    "JOB_ENDGAME": "StateEndGame",
+    "JOB_ENDCOMBAT": "EndCombat",
+    "JOB_HEALTHUPDATE": "HealthUpdate",
+    "JOB_MATCHMAKING": "StateMatchmaking",
+    "JOB_CARDUPDATE": "CardUpdate",
+    "JOB_HERODISCOVER": "HeroDiscover"
+}

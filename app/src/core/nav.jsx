@@ -1,12 +1,13 @@
 import React from "react";
 
 function minimize() {
-    api.window.minimize()
+    api.send("app/minimize")
 }
 
 function close_app() {
-    api.window.close_app()
+    api.send("app/close")
 }
+
 
 
 class Nav extends React.Component {

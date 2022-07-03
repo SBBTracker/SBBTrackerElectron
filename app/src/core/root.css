@@ -49,7 +49,7 @@ nav {
     background-color: #f1f1f1;
     width: 8em;
     height: 100vh;
-  }
+}
 
 .sidebar button {
     display: block;
@@ -94,12 +94,10 @@ nav {
     width: 70%;
     border-left: none;
     height: 300px;
-  }
-  
-/* Placeholder Icon */
-.place_holder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 350px;
+}
+
+.mainWindow {
+    float: right;
+    width: calc(100% - 9em);
+    height: 100vh;
 }

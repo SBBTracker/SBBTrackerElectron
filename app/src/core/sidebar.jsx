@@ -19,11 +19,36 @@ const SideBar = (props) => {
 
     return (
         <div className="sidebar" id="sidebar">
-            <button className="sidebarcontent interactable" id="board_comps">Board Comps</button>
-            <button className="sidebarcontent interactable" id="hero_selection">Hero Selection</button>
-            <button className="sidebarcontent interactable" id="live_graphcs">Live Graphs</button>
-            <button className="sidebarcontent interactable" id="match_history">Match History</button>
-            <button className="sidebarcontent interactable" id="stats_graph">Stats Graph</button>
+            <button
+                className="sidebarcontent interactable"
+                id="boardcomps"
+                onClick={() => navigate(ROUTES.BOARD_COMPS)}
+            >Board Comps
+            </button>
+            <button
+                className="sidebarcontent interactable"
+                id="heroselection"
+                onClick={() => navigate(ROUTES.HERO_SELECTION)}
+            >Hero Selection
+            </button>
+            <button
+                className="sidebarcontent interactable"
+                id="livegraphs"
+                onClick={() => navigate(ROUTES.LIVE_GRAPHS)}
+            >Live Graphs
+            </button>
+            <button
+                className="sidebarcontent interactable"
+                id="matchhistory"
+                onClick={() => navigate(ROUTES.MATCH_HISTORY)}
+            >Match History
+            </button>
+            <button
+                className="sidebarcontent interactable"
+                id="stats"
+                onClick={() => navigate(ROUTES.STATS)}
+            >Stats
+            </button>
             <button
                 className="sidebarcontent interactable"
                 id="logs"

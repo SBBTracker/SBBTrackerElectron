@@ -13,6 +13,7 @@ const path = require('path')
 const { contextIsolated } = require('process');
 const { AppInfo } = require('electron-builder');
 const { LoaderTargetPlugin } = require('webpack');
+const { parse } = require('path');
 const isDev = process.env.NODE_ENV === "development";
 const port = 40992; // Hardcoded; needs to match webpack.development.js and package.json
 const selfHost = `http://localhost:${port}`;
@@ -22,7 +23,7 @@ const selfHost = `http://localhost:${port}`;
  * py process
  *************************************************************/
 
-let log_parser_process 
+let log_parser_process
 let battle_simulator_process
 
 const PY_DIST_FOLDER = '../dist-python'
@@ -31,26 +32,47 @@ const LOG_PARSER = 'log_parser'
 const BATTLE_SIM = 'battle_simulator'
 
 const getScriptPath = (py_module) => {
-  if (isDev) {
-    return path.join(__dirname, PY_FOLDER, py_module + '.py')
-  }
-  if (process.platform === 'win32') {
-    return path.join(__dirname, PY_DIST_FOLDER, py_module, py_module + '.exe')
-  }
-  return path.join(__dirname, PY_DIST_FOLDER, py_module, py_module)
+    if (isDev) {
+        return path.join(__dirname, PY_FOLDER, py_module + '.py')
+    }
+    if (process.platform === 'win32') {
+        return path.join(__dirname, PY_DIST_FOLDER, py_module, py_module + '.exe')
+    }
+    return path.join(__dirname, PY_DIST_FOLDER, py_module, py_module)
 }
 
 const createPyProc = (py_module) => {
-  let script = getScriptPath(py_module)
-  console.log(script)
+    let script = getScriptPath(py_module)
 
-  if (!isDev) {
-    pyProc = require('child_process').execFile(script)
-  } else {
-    pyProc = require('child_process').spawn('python', [script])
-  }
-   
-  return pyProc
+    if (!isDev) {
+        pyProc = require('child_process').execFile(script)
+    } else {
+        pyProc = require('child_process').spawn('python', [script])
+    }
+
+    return pyProc
+}
+
+const {
+    round_number,
+    current_player,
+    counter,
+    session_id,
+    build_id,
+    combats,
+} = [0, null, 0, null, null, null, new Array()]
+
+function newGame() {
+    return [0, null, 0, null, null, null, new Array()]
+}
+
+const jobTypes = require('./constants/jobTypes.json')
+const parseLog = (data) => {
+    if (data.job == jobTypes.JOB_MATCHMAKING){
+        
+    } else if (data.job == jobTypes.JOB_NEWGAME && data.state.session_id != session_id){
+
+    }
 }
 
 /*************************************************************
@@ -121,11 +143,15 @@ const createWindow = () => {
     ipcMain.on('app/close', () => {
         app.quit()
     });
-    
+
+    // Log Process and Processing
     log_parser_process = createPyProc(LOG_PARSER)
     log_parser_process.stdout.on('data', (data) => {
-        console.log(`STDOUT`)
-        win.webContents.send('logs/new', data)
+        for (const log of data.toString().split('\n')) {
+            if (log) {
+                win.webContents.send("logs/new", log)
+            }
+        }
     })
     log_parser_process.stderr.on('data', (data) => {
         console.log(`STDERR ${data}`)

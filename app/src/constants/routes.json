@@ -1,4 +1,9 @@
 {
     "WELCOME": "/",
+    "BOARD_COMPS": "/boardcomps",
+    "HERO_SELECTION": "/heroselection",
+    "LIVE_GRAPHS": "/livegraphs",
+    "MATCH_HISTORY": "/matchhistory",
+    "STATS": "/stats",
     "LOGS": "/logs"
 }
